@@ -21,7 +21,7 @@
 
 `Dubbo`为一款高性能、轻量级的开源java服务框架，本示例项目中使用其面向接口代理的`RPC`调用功能。 `Dubbo`的基础架构如下图所示。
 
-![1615383434841](D:\Users\yhee\Desktop\dubbo-example\README\1615383434841.png)
+![1615383434841](./README/1615383434841.png)
 
 在使用`Dubbo`时，需接入依赖
 
@@ -120,9 +120,9 @@ public String test(){
 
 启动服务后可以在`nacos`注册中心看到服务上线
 
-![1615383214954](D:\Users\yhee\Desktop\dubbo-example\README\1615383214954.png)
+![1615383214954](./README/1615383214954.png)
 
 访问http://localhost:8002/test 可以看到RPC调用生效
 
-![1615383324145](D:\Users\yhee\Desktop\dubbo-example\README\1615383324145.png)
+![1615383324145](./README/1615383324145.png)
 
