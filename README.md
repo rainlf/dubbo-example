@@ -1,6 +1,8 @@
 # Dubbo Provider-Consumer Example
 
-## 环境
+该项目以`生产者-消费者`的示例，介绍`dubbo`搭配`nacos`实现微服务下不用服务间进行`RPC调用`的过程。下面对二者做简答的使用方式介绍。
+
+## 开发环境
 
 - `java 1.8`
 - `springboot 2.3.7.RELEASE`
@@ -19,11 +21,17 @@
 
 ## Dubbo
 
-`Dubbo`为一款高性能、轻量级的开源java服务框架，本示例项目中使用其面向接口代理的`RPC`调用功能。 `Dubbo`的基础架构如下图所示。
+`Dubbo`为一款高性能、轻量级的开源java服务框架，这里使用其面向接口代理的`RPC`调用功能。 
+
+### 架构
+
+`Dubbo`的基础架构如下图所示。
 
 ![1615383434841](./README/1615383434841.png)
 
-在使用`Dubbo`时，需接入依赖
+### 依赖
+
+在使用`Dubbo`时，需加入依赖
 
 ```xml
 
@@ -32,15 +40,14 @@
     <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
 </dependency>
 <dependency>
-<groupId>com.alibaba.cloud</groupId>
-<artifactId>spring-cloud-starter-dubbo</artifactId>
+	<groupId>com.alibaba.cloud</groupId>
+	<artifactId>spring-cloud-starter-dubbo</artifactId>
 </dependency>
 ```
 
 与依赖管理
 
 ```xml
-
 <dependencyManagement>
     <dependencies>
         <dependency>
@@ -61,31 +68,29 @@
 </dependencyManagement>
 ```
 
+### 配置
+
 在配置文件`application.properties`中声明
 
 ```properties
-# 应用名称
 spring.application.name=my-app
-# dubbo 协议
+server.port=8080
+# Dubbo
 dubbo.protocol.id=dubbo
 dubbo.protocol.name=dubbo
-# dubbo 协议端口（ -1 表示自增端口，从 20880 开始）
 dubbo.protocol.port=-1
 # Dubbo 消费端订阅服务端的应用名，多个服务提供者用逗号分隔
 # 这里订阅"自己"，会被忽略掉，请根据实际情况添加
 dubbo.cloud.subscribed-services=my-app
-# dubbo 服务扫描基准包
 dubbo.scan.base-packages=com.rainlf.dubbo.example
-# 应用服务 WEB 访问端口
-server.port=8001
-# Nacos认证信息
+# Nacos
+spring.cloud.nacos.discovery.server-addr=localhost:8848
+spring.cloud.nacos.discovery.namespace=public
 spring.cloud.nacos.discovery.username=nacos
 spring.cloud.nacos.discovery.password=nacos
-# Nacos 服务发现与注册配置，其中子属性 server-addr 指定 Nacos 服务器主机和端口
-spring.cloud.nacos.discovery.server-addr=localhost:8848
-# 注册到 nacos 的指定 namespace，默认为 public
-spring.cloud.nacos.discovery.namespace=public
 ```
+
+### 应用
 
 服务提供者使用`@DubboService`注解声明服务，如：
 
